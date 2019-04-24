@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 "use_strict";
 const program = require("commander");
+const { exec } = require("child_process");
 
 const { echoString } = require("./data");
 
@@ -20,14 +21,23 @@ const readableSeconds = (d) => {
   return hDisplay + mDisplay + sDisplay;
 };
 
+const execCallback = (error, stdout, stderr) => {
+  if (error) console.log("exec error: " + error);
+  if (stdout) console.log(stdout);
+  if (stderr) console.log("shell error: " + stderr);
+};
+
+
+
+console.log("\033[2J");
+exec('tput cup 0 0', execCallback);
 const listFunction = (seconds, options) => {
   if (seconds >= 0) {
     const width = process.stdout.getWindowSize()[0];
     const height = process.stdout.getWindowSize()[1];
     const top = Math.abs((height - 5) / 2);
     const left = Math.abs((width - 47) / 2);
-    console.log("\033[2J");
-    // console.log(readableSeconds(seconds));
+    exec('tput cup 0 0', execCallback);
     echoString(readableSeconds(seconds), top, left);
 
     setTimeout(() => {
