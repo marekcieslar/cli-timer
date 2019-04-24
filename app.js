@@ -48,7 +48,8 @@ const listFunction = (seconds, options) => {
 
 program
   .version("0.0.1")
-  .command("timer [seconds]")
+  .command("s [seconds]")
+  // .command("m [minutes]")
   .description("count down")
   .action(listFunction);
 

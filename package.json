@@ -1,5 +1,8 @@
 {
   "name": "timer",
+  "bin": {
+    "timer": "app.js"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -11,5 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^2.20.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
   }
 }
