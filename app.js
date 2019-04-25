@@ -27,18 +27,22 @@ const execCallback = (error, stdout, stderr) => {
   if (stderr) console.log("shell error: " + stderr);
 };
 
-
-
 console.log("\033[2J");
-exec('tput cup 0 0', execCallback);
+exec("tput cup 0 0", execCallback);
+let first;
 const listFunction = (seconds, options) => {
   if (seconds >= 0) {
     const width = process.stdout.getWindowSize()[0];
     const height = process.stdout.getWindowSize()[1];
     const top = Math.abs((height - 5) / 2);
     const left = Math.abs((width - 47) / 2);
-    exec('tput cup 0 0', execCallback);
+    exec("tput cup 0 0", execCallback);
     echoString(readableSeconds(seconds), top, left);
+
+    if (!first) {
+      console.log("\033[2J");
+      first = true;
+    }
 
     setTimeout(() => {
       listFunction(seconds - 1, options);
