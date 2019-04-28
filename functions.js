@@ -67,20 +67,22 @@ const exit = () => {
  * @param {*} seconds
  * @param {*} options
  */
-let first;
+let cols, rows;
 const echoTime = (seconds, options) => {
   if (seconds >= 0) {
     const width = process.stdout.getWindowSize()[0];
     const height = process.stdout.getWindowSize()[1];
+
+    if (width !== cols || height !== rows) {
+      console.log("\033[2J");
+      cols = width;
+      rows = height;
+    }
+
     const top = Math.abs((height - 5) / 2);
     const left = Math.abs((width - 47) / 2);
     exec("tput cup 0 0", execCallback);
     echoString(readableSeconds(seconds), top, left);
-
-    if (!first) {
-      console.log("\033[2J");
-      first = true;
-    }
 
     setTimeout(() => {
       echoTime(seconds - 1, options);
