@@ -29,6 +29,8 @@ const execCallback = (error, stdout, stderr) => {
 
 console.log("\033[2J");
 exec("tput cup 0 0", execCallback);
+exec("tput civis", execCallback);
+
 let first;
 const listFunction = (seconds, options) => {
   if (seconds >= 0) {
@@ -58,3 +60,26 @@ program
   .action(listFunction);
 
 program.parse(process.argv);
+
+process.on("SIGTERM", function() {
+  console.log("close");
+});
+
+const exit = () => {
+  exec("tput cnorm", (error, stdout, stderr) => {
+    if (error) console.log("exec error: " + error);
+    if (stdout) {
+      console.log(stdout);
+      process.exit(0);
+    }
+    if (stderr) console.log("shell error: " + stderr);
+  });
+};
+
+// when user kills program
+process.on("SIGINT", function() {
+  exit();
+});
+process.on("beforeExit", function() {
+  exit();
+});
