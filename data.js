@@ -1,5 +1,5 @@
-const s = "\u2586";
-const o = " ";
+const symbol = "\u2586";
+const empty = " ";
 
 const dictionary = {
   "0": [
@@ -81,41 +81,8 @@ const dictionary = {
   ]
 };
 
-const echoSign = (sign) => {
-  for (let i = 0; i < 5; i++) {
-    line = "";
-    for (let j = 0; j < 5; j++) {
-      line += dictionary[sign][i][j] === 0 ? o : s;
-    }
-    console.log(line);
-  }
-};
-
-const echoString = (string, top, left) => {
-  for (let i = 0; i < top; i++) {
-    console.log();
-  }
-
-  let prefix = "";
-  for (let i = 0; i < left; i++) {
-    prefix += o;
-  }
-
-  const l = string.length;
-  for (let i = 0; i < 5; i++) {
-    line = prefix;
-    for (let j = 0; j < l; j++) {
-      for (let k = 0; k < 5; k++) {
-        line += dictionary[string.charAt(j)][i][k] === 0 ? o : s;
-      }
-      line += o;
-    }
-    console.log(line);
-  }
-};
-
 module.exports = {
-  dictonary: dictionary,
-  echoSign,
-  echoString
+  dictionary,
+  symbol,
+  empty
 };
