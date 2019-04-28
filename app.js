@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 "use_strict";
 const program = require("commander");
+const { version } = require("./package.json");
 
 const { exit, start, echoTime } = require("./functions");
 
 start();
 
 program
-  .version("0.0.1")
+  .version(version)
   .command("s [seconds]")
   .description("count down")
   .action(echoTime);
