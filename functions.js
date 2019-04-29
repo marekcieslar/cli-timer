@@ -84,7 +84,7 @@ const echoTime = (seconds, options) => {
     const top = Math.abs((height - 5) / 2);
     const left = Math.abs((width - 47) / 2);
     exec("tput cup 0 0", execCallback);
-    echoString(readableSeconds(seconds), top - 1, left);
+    echoString(readableSeconds(seconds), top, left);
 
     setTimeout(() => {
       if (firstLap) {
