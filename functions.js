@@ -69,7 +69,7 @@ const exit = () => {
  */
 let cols,
   rows,
-  firstLap = true;
+  firstLap = 0;
 const echoTime = (seconds, options) => {
   if (seconds >= 0) {
     const width = process.stdout.getWindowSize()[0];
@@ -87,9 +87,9 @@ const echoTime = (seconds, options) => {
     echoString(readableSeconds(seconds), top, left);
 
     setTimeout(() => {
-      if (firstLap) {
+      if (firstLap < 2) {
         console.log("\033[2J");
-        firstLap = false;
+        firstLap++;
       }
       echoTime(seconds - 1, options);
     }, 1000);
